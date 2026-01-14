@@ -1,0 +1,128 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">Pipeline</h1>
+    <!-- Actions (Filter/Add) could go here -->
+</div>
+
+<div class="monday-dashboard">
+    {% for stage_key, stage_label in stages.items() %}
+    <div class="monday-group group-{{ stage_key }}" ondrop="drop(event, '{{ stage_key }}')"
+        ondragover="allowDrop(event)">
+
+        <div class="monday-group-header">
+            <!-- Chevron Down -->
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" style="opacity:0.6;">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+            <span style="color:var(--text-primary);">{{ stage_label }}</span>
+            <span style="font-weight:400; opacity:0.4; margin-left:4px;">{{ leads_by_stage[stage_key]|length }}</span>
+        </div>
+
+        <table class="monday-table">
+            <thead>
+                <tr>
+                    <th style="width: 4px; padding:0;"></th> <!-- Border -->
+                    <th style="width: 40px; text-align:center;">
+                        <div
+                            style="width:14px; height:14px; border:1px solid var(--border-light); border-radius:3px; margin:0 auto; opacity:0.5;">
+                        </div>
+                    </th>
+                    <th style="width: 250px;">Candidate</th>
+                    <th style="width: 130px;">Status</th>
+                    <th style="width: 140px;">Match</th>
+                    <th>Interest</th>
+                    <th style="width: 150px;">Contact</th>
+                    <th style="width: 100px;">Updated</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if not leads_by_stage[stage_key] %}
+                <tr>
+                    <td colspan="8"
+                        style="text-align:center; padding:24px; color:var(--text-tertiary); font-style:italic; font-size:0.85rem;">
+                        Empty Stage
+                    </td>
+                </tr>
+                {% endif %}
+
+                {% for lead in leads_by_stage[stage_key] %}
+                <tr draggable="true" ondragstart="drag(event, '{{ lead.id }}')" onclick="openDrawer('{{ lead.id }}')">
+
+                    <!-- Color Border Indicator -->
+                    <td
+                        style="padding:0; width:4px; background:var(--status-{{ lead.pipeline_status|lower }}-text, #ccc);">
+                    </td>
+
+                    <td style="text-align:center;" onclick="event.stopPropagation()">
+                        <div style="width:16px; height:16px; border:1px solid var(--border-light); border-radius:4px; margin:0 auto; cursor:pointer;"
+                            onclick="this.style.background='var(--text-primary)'"></div>
+                    </td>
+
+                    <td>
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <div class="avatar-circle">
+                                {{ lead.name[:2] if lead.name else '??' }}
+                            </div>
+                            <span style="font-weight:500;">
+                                {{ lead.name or lead.whatsapp_number }}
+                            </span>
+                        </div>
+                    </td>
+
+                    <td>
+                        <span class="status-pill status-{{ lead.pipeline_status }}">
+                            {{ lead.pipeline_status|capitalize }}
+                        </span>
+                    </td>
+
+                    <td>
+                        {% if lead.qualification_score > 0 %}
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="flex:1; height:6px; background:#e2e8f0; border-radius:3px; max-width:70px;">
+                                <div
+                                    style="height:100%; border-radius:3px; width:{{ lead.qualification_score }}%; 
+                                        background: {% if lead.qualification_score >= 80 %}#10b981{% elif lead.qualification_score >= 50 %}#f59e0b{% else %}#ef4444{% endif %};">
+                                </div>
+                            </div>
+                            <span style="font-size:0.8rem; font-weight:600; color:var(--text-secondary);">{{
+                                lead.qualification_score }}</span>
+                        </div>
+                        {% else %}
+                        <span style="color:var(--text-tertiary);">-</span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <span
+                            style="display:block; max-width:180px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--text-secondary); font-size:0.85rem;">
+                            {{ lead.position_interest or "-" }}
+                        </span>
+                    </td>
+
+                    <td style="font-size:0.85rem; color:var(--text-secondary);">{{ lead.phone or "-" }}</td>
+
+                    <td style="color:var(--text-tertiary); font-size:0.8rem;">{{ lead.updated_at.strftime('%d %b') }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    // Drag and Drop Logic
+    function allowDrop(ev) { ev.preventDefault(); }
+    function drag(ev, leadId) { ev.dataTransfer.setData("leadId", leadId); }
+    function drop(ev, newStage) {
+        ev.preventDefault();
+        var leadId = ev.dataTransfer.getData("leadId");
+        fetch(`/admin/move_lead/${leadId}/${newStage}`, { method: 'POST' })
+            .then(r => { if (r.ok) window.location.reload(); });
+    }
+</script>
+{% endblock %}

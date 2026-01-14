@@ -1,0 +1,114 @@
+{
+    "intents": {
+        "greeting": {
+            "keywords": [
+                "hallo",
+                "hi",
+                "hey",
+                "guten tag",
+                "moin",
+                "servus"
+            ],
+            "response": "Hi! 👋 Ich bin der muuh Recruiting-Bot.\n\nIch helfe dir gerne bei Fragen zu unseren offenen Stellen und dem Bewerbungsprozess.\n\nWas möchtest du wissen?"
+        },
+        "job_openings": {
+            "keywords": [
+                "jobs",
+                "stellen",
+                "positionen",
+                "offen",
+                "vacancies",
+                "welche jobs"
+            ],
+            "response": "Aktuell suchen wir:\n\n• (Junior) Conversational AI Developer\n• Senior Product Manager\n• UX Designer\n\nAlle Positionen sind in Osnabrück, Berlin oder Remote verfügbar.\n\nInteressiert dich eine dieser Positionen?"
+        },
+        "application_process": {
+            "keywords": [
+                "bewerbung",
+                "bewerben",
+                "prozess",
+                "ablauf",
+                "wie bewerbe"
+            ],
+            "response": "Unser Bewerbungsprozess läuft so ab:\n\n1️⃣ Bewerbung einreichen\n2️⃣ HR Screening (1-2 Tage)\n3️⃣ Telefon-Interview\n4️⃣ Technical Interview\n5️⃣ Meet the Team\n6️⃣ Angebot\n\nDer gesamte Prozess dauert ca. 2-3 Wochen.\n\nMöchtest du dich bewerben?"
+        },
+        "remote_work": {
+            "keywords": [
+                "remote",
+                "homeoffice",
+                "home office",
+                "von zuhause"
+            ],
+            "response": "Ja! 🏠 Alle Positionen bieten wir remote, hybrid oder im Office an.\n\nDu entscheidest, was am besten für dich passt.\n\nWas bevorzugst du?"
+        },
+        "salary": {
+            "keywords": [
+                "gehalt",
+                "salary",
+                "bezahlung",
+                "verdienst",
+                "lohn"
+            ],
+            "response": "Das Gehalt hängt von Position und Erfahrung ab:\n\n• Junior-Level: 40-50k€\n• Mid-Level: 50-60k€\n• Senior-Level: 60-80k€\n\nPlus Benefits wie Weiterbildungsbudget, JobBike, Altersvorsorge-Zuschuss.\n\nWelche Position interessiert dich?"
+        },
+        "benefits": {
+            "keywords": [
+                "benefits",
+                "vorteile",
+                "perks",
+                "zusatzleistungen"
+            ],
+            "response": "Unsere Benefits:\n\n✅ Individuelle Weiterbildungsbudgets\n✅ Moderne Offices mit höhenverstellbaren Schreibtischen\n✅ Teamevents (hauseigene Disco & Bar!)\n✅ Fitnessstudio & Sporthalle\n✅ 20% Arbeitgeberzuschuss Altersvorsorge\n✅ JobBike & Zug-Ticket Zuschuss\n\nKlingt gut?"
+        },
+        "company_info": {
+            "keywords": [
+                "muuh",
+                "unternehmen",
+                "firma",
+                "company",
+                "wer seid"
+            ],
+            "response": "MUUUH! Group ist der führende Anbieter für Conversational AI im Voice & Chat-Bereich.\n\n🎯 Wir bauen KI-Lösungen für Phone, WhatsApp, Alexa, Web & Apps\n💡 Tech-Stack: Parloa, Generative AI, APIs\n🚀 Startup-Kultur mit Gestaltungsspielraum\n\nWir sind Teil der größten inhabergeführten Customer Management Company Deutschlands.\n\nInteressiert?"
+        },
+        "tech_stack": {
+            "keywords": [
+                "technologie",
+                "tech stack",
+                "tools",
+                "welche tools"
+            ],
+            "response": "Unser Tech-Stack:\n\n• Parloa (Conversational AI Platform)\n• Generative AI (GPT-4, Claude)\n• RESTful APIs & Webhooks\n• JSON, Python, Node.js\n• Cloud (AWS, Azure)\n\nDu arbeitest mit modernen Tools an spannenden KI-Projekten.\n\nHast du schon Erfahrung damit?"
+        }
+    },
+    "screening_questions": {
+        "conversational_ai_experience": {
+            "question": "Super! 🎉 Um dich besser kennenzulernen:\n\nHast du schon Erfahrung mit Conversational AI oder verwandten Themen?",
+            "followup_yes": "Perfect! Das passt gut. 👏",
+            "followup_no": "Kein Problem! Interesse und Lernbereitschaft sind wichtiger. 💪"
+        },
+        "api_knowledge": {
+            "question": "Kennst du dich mit RESTful APIs, JSON und Webhooks aus?",
+            "followup_yes": "Excellent! Genau das suchen wir. ✨",
+            "followup_no": "Kein Problem! Das kann man lernen. 📚"
+        },
+        "availability": {
+            "question": "Suchst du Vollzeit (40h) oder Teilzeit (ab 20h)?",
+            "options": [
+                "Vollzeit",
+                "Teilzeit"
+            ]
+        },
+        "work_mode": {
+            "question": "Bevorzugst du Remote, Hybrid oder Office?",
+            "options": [
+                "Remote",
+                "Hybrid",
+                "Office"
+            ]
+        },
+        "contact_info": {
+            "question": "Perfekt! Magst du mir noch deinen Namen und Email geben?\n\nDann kann ich dich direkt an unser HR-Team weiterleiten. 📧",
+            "format": "Name, Email"
+        }
+    }
+}

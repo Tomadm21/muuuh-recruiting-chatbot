@@ -1,0 +1,116 @@
+{
+    "company": {
+        "name": "MUUUH! Group",
+        "tagline": "Kundenmanagement der Zukunft",
+        "focus": "Conversational AI für Voice & Chat",
+        "channels": [
+            "Phone",
+            "Alexa",
+            "WhatsApp",
+            "Web-Chat",
+            "App-Chat"
+        ],
+        "tech_stack": [
+            "Parloa",
+            "Generative AI",
+            "RESTful APIs"
+        ],
+        "culture": [
+            "Startup mindset",
+            "innovative",
+            "collaborative",
+            "Gestaltungsspielraum"
+        ],
+        "locations": [
+            "Osnabrück",
+            "Berlin",
+            "Remote"
+        ]
+    },
+    "positions": [
+        {
+            "title": "(Junior) Conversational AI Developer",
+            "location": [
+                "Osnabrück",
+                "Berlin",
+                "Remote"
+            ],
+            "type": [
+                "Vollzeit",
+                "Teilzeit"
+            ],
+            "requirements": [
+                "Conversational AI Expertise (Voice & Chat)",
+                "Erfahrung mit Parloa oder Generative AI",
+                "Tech-Stack: RESTful APIs, JSON, Webhooks, SDKs",
+                "Interesse an Datenanalyse & Erfolgsmessung",
+                "Deutsch & Englisch fließend"
+            ],
+            "responsibilities": [
+                "Entwicklung von Voice & Chat Bots (Phone, Alexa, WhatsApp, Web)",
+                "Nutzung von Parloa & Generative AI",
+                "Begleitung von Kundenprojekten (Anfrage bis Betrieb)",
+                "Strategische Beratung zu Conversational AI Potenzialen"
+            ],
+            "link": "https://muuuh-gmbh.jobs.personio.de/job/2375560"
+        },
+        {
+            "title": "Senior Product Manager",
+            "location": [
+                "Osnabrück",
+                "Berlin",
+                "Remote"
+            ],
+            "type": [
+                "Vollzeit"
+            ],
+            "requirements": [
+                "Produktmanagement-Erfahrung",
+                "Tech-Affinität",
+                "Führungsqualitäten"
+            ],
+            "link": "https://muuuh-gmbh.jobs.personio.de"
+        },
+        {
+            "title": "UX Designer",
+            "location": [
+                "Osnabrück",
+                "Berlin"
+            ],
+            "type": [
+                "Vollzeit",
+                "Teilzeit"
+            ],
+            "requirements": [
+                "UX/UI Design Erfahrung",
+                "Figma, Adobe XD",
+                "User Research"
+            ],
+            "link": "https://muuuh-gmbh.jobs.personio.de"
+        }
+    ],
+    "benefits": [
+        "Individuelle Weiterbildungsbudgets",
+        "Moderne Offices (höhenverstellbare Schreibtische)",
+        "Teamevents (hauseigene Disco, Bar)",
+        "Fitnessstudio & Sporthalle",
+        "20% Arbeitgeberzuschuss Altersvorsorge",
+        "JobBike & Zug-Ticket Zuschuss"
+    ],
+    "application_process": [
+        "1. Bewerbung einreichen (CV + Anschreiben)",
+        "2. Screening durch HR (1-2 Tage)",
+        "3. Telefon-Interview mit HR-Team",
+        "4. Technical Interview mit Team Lead",
+        "5. Meet the Team vor Ort oder remote",
+        "6. Angebot & Vertragsunterzeichnung"
+    ],
+    "faqs": {
+        "remote_work": "Ja! Wir bieten Remote, Hybrid oder Office an. Du entscheidest, was am besten für dich passt.",
+        "salary": "Das Gehalt hängt von deiner Erfahrung und Position ab. Für Junior-Positionen liegt der Rahmen bei 40-50k€, für Senior-Level bei 60-80k€.",
+        "working_hours": "Wir bieten sowohl Vollzeit (40h) als auch Teilzeit (ab 20h) an. Flexible Arbeitszeiten sind bei uns Standard.",
+        "tech_stack": "Wir arbeiten hauptsächlich mit Parloa für Conversational AI, nutzen aber auch eigene APIs, generative AI (GPT-4), und moderne Cloud-Technologien.",
+        "team_size": "Das muuh Team ist Teil der MUUUH! Group mit über 100 Mitarbeitern. Das Tech-Team besteht aus etwa 15-20 Entwicklern und Designern.",
+        "onboarding": "Wir haben ein strukturiertes Onboarding-Programm mit Mentoring, Schulungen und einem Buddy-System. Du bekommst alle Zeit, die du brauchst."
+    }
+}
