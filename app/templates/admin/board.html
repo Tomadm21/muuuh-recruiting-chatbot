@@ -3,116 +3,167 @@
 {% block content %}
 <div class="page-header">
     <h1 class="page-title">Pipeline</h1>
-    <!-- Actions (Filter/Add) could go here -->
 </div>
 
-<div class="monday-dashboard">
+<!-- Pipeline Overview Stats -->
+<div style="display:flex; gap:12px; margin-bottom:32px; padding:20px; background:var(--bg-card); border-radius:10px; border:2px solid var(--border-medium); box-shadow:var(--shadow-md); flex-wrap:wrap;">
     {% for stage_key, stage_label in stages.items() %}
-    <div class="monday-group group-{{ stage_key }}" ondrop="drop(event, '{{ stage_key }}')"
-        ondragover="allowDrop(event)">
+    <div style="display:flex; align-items:center; gap:8px; padding:6px 12px; background:var(--bg-hover); border-radius:6px;">
+        <span style="font-size:0.75rem; font-weight:500; color:var(--text-secondary);">{{ stage_label }}</span>
+        <span style="font-size:0.875rem; font-weight:700; color:var(--text-primary);">{{ leads_by_stage[stage_key]|length }}</span>
+    </div>
+    {% endfor %}
+</div>
 
-        <div class="monday-group-header">
-            <!-- Chevron Down -->
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" style="opacity:0.6;">
-                <polyline points="6 9 12 15 18 9"></polyline>
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap:20px;">
+    {% for stage_key, stage_label in stages.items() %}
+    <div class="pipeline-panel" ondrop="drop(event, '{{ stage_key }}')" ondragover="allowDrop(event)"
+         style="background:var(--bg-card); border-radius:12px; border:2px solid var(--border-medium); padding:20px; box-shadow:var(--shadow-md);">
+
+        <div class="monday-group-header" style="margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid var(--border-light);">
+            <!-- Stage Icon -->
+            {% if stage_key == 'NEW' %}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="8.5" cy="7" r="4"></circle>
+                <line x1="20" y1="8" x2="20" y2="14"></line>
+                <line x1="23" y1="11" x2="17" y2="11"></line>
             </svg>
+            {% elif stage_key == 'SCREENING' %}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            {% elif stage_key == 'INTERVIEW' %}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            {% elif stage_key == 'OFFER' %}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            {% elif stage_key == 'HIRED' %}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            {% else %}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+            </svg>
+            {% endif %}
             <span style="color:var(--text-primary);">{{ stage_label }}</span>
             <span style="font-weight:400; opacity:0.4; margin-left:4px;">{{ leads_by_stage[stage_key]|length }}</span>
         </div>
 
-        <table class="monday-table">
+        <div style="overflow-x:auto;">
+        <table class="monday-table" style="border-spacing:0 2px;">
             <thead>
                 <tr>
-                    <th style="width: 4px; padding:0;"></th> <!-- Border -->
-                    <th style="width: 40px; text-align:center;">
-                        <div
-                            style="width:14px; height:14px; border:1px solid var(--border-light); border-radius:3px; margin:0 auto; opacity:0.5;">
-                        </div>
-                    </th>
-                    <th style="width: 250px;">Candidate</th>
-                    <th style="width: 130px;">Status</th>
-                    <th style="width: 140px;">Match</th>
-                    <th>Interest</th>
-                    <th style="width: 150px;">Contact</th>
-                    <th style="width: 100px;">Updated</th>
+                    <th style="width: 2px; padding:0;"></th>
+                    <th style="width: 200px; padding-left:12px;">Candidate</th>
+                    <th style="width: 70px;">Score</th>
+                    <th style="width: 80px;">Updated</th>
+                    <th style="width: 80px; text-align:right; padding-right:12px;">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% if not leads_by_stage[stage_key] %}
                 <tr>
-                    <td colspan="8"
-                        style="text-align:center; padding:24px; color:var(--text-tertiary); font-style:italic; font-size:0.85rem;">
-                        Empty Stage
+                    <td colspan="5"
+                        style="text-align:center; padding:40px 20px; color:var(--text-tertiary); font-size:0.8125rem; background:var(--bg-hover); border-radius:8px;">
+                        No candidates
                     </td>
                 </tr>
                 {% endif %}
 
                 {% for lead in leads_by_stage[stage_key] %}
-                <tr draggable="true" ondragstart="drag(event, '{{ lead.id }}')" onclick="openDrawer('{{ lead.id }}')">
+                <tr draggable="true" ondragstart="drag(event, '{{ lead.id }}')" onclick="openDrawer('{{ lead.id }}')"
+                    style="background:var(--bg-hover); transition:all 0.15s;">
 
-                    <!-- Color Border Indicator -->
-                    <td
-                        style="padding:0; width:4px; background:var(--status-{{ lead.pipeline_status|lower }}-text, #ccc);">
+                    <td style="padding:0; width:2px; background:var(--status-{{ lead.pipeline_status|lower }}-text, #d4d4d4); border-radius:6px 0 0 6px;">
                     </td>
 
-                    <td style="text-align:center;" onclick="event.stopPropagation()">
-                        <div style="width:16px; height:16px; border:1px solid var(--border-light); border-radius:4px; margin:0 auto; cursor:pointer;"
-                            onclick="this.style.background='var(--text-primary)'"></div>
-                    </td>
-
-                    <td>
-                        <div style="display:flex; align-items:center; gap:12px;">
-                            <div class="avatar-circle">
+                    <td style="padding:10px 12px;">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <div class="avatar-circle" style="width:32px; height:32px; font-size:0.75rem;">
                                 {{ lead.name[:2] if lead.name else '??' }}
                             </div>
-                            <span style="font-weight:500;">
-                                {{ lead.name or lead.whatsapp_number }}
-                            </span>
+                            <div>
+                                <div style="font-weight:500; color:var(--text-primary); font-size:0.8125rem;">
+                                    {{ lead.name or lead.whatsapp_number }}
+                                </div>
+                                <div style="font-size:0.6875rem; color:var(--text-tertiary); margin-top:2px;">
+                                    {{ lead.position_interest or "-" }}
+                                </div>
+                            </div>
                         </div>
                     </td>
 
-                    <td>
-                        <span class="status-pill status-{{ lead.pipeline_status }}">
-                            {{ lead.pipeline_status|capitalize }}
-                        </span>
-                    </td>
-
-                    <td>
+                    <td style="padding:10px 8px;">
                         {% if lead.qualification_score > 0 %}
-                        <div style="display:flex; align-items:center; gap:10px;">
-                            <div style="flex:1; height:6px; background:#e2e8f0; border-radius:3px; max-width:70px;">
-                                <div
-                                    style="height:100%; border-radius:3px; width:{{ lead.qualification_score }}%; 
-                                        background: {% if lead.qualification_score >= 80 %}#10b981{% elif lead.qualification_score >= 50 %}#f59e0b{% else %}#ef4444{% endif %};">
-                                </div>
-                            </div>
-                            <span style="font-size:0.8rem; font-weight:600; color:var(--text-secondary);">{{
-                                lead.qualification_score }}</span>
+                        <div style="display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:6px; font-weight:700; font-size:0.8125rem;
+                            background: {% if lead.qualification_score >= 80 %}#f0fdf4{% elif lead.qualification_score >= 50 %}#fef9f5{% else %}#fef2f2{% endif %};
+                            color: {% if lead.qualification_score >= 80 %}#10b981{% elif lead.qualification_score >= 50 %}#f59e0b{% else %}#ef4444{% endif %};">
+                            {{ lead.qualification_score }}
                         </div>
                         {% else %}
                         <span style="color:var(--text-tertiary);">-</span>
                         {% endif %}
                     </td>
 
-                    <td>
-                        <span
-                            style="display:block; max-width:180px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--text-secondary); font-size:0.85rem;">
-                            {{ lead.position_interest or "-" }}
-                        </span>
+                    <td style="padding:10px 8px; color:var(--text-tertiary); font-size:0.75rem;">
+                        {{ lead.updated_at.strftime('%d %b') }}
                     </td>
 
-                    <td style="font-size:0.85rem; color:var(--text-secondary);">{{ lead.phone or "-" }}</td>
-
-                    <td style="color:var(--text-tertiary); font-size:0.8rem;">{{ lead.updated_at.strftime('%d %b') }}
+                    <td style="text-align:right; padding:10px 12px;" onclick="event.stopPropagation()">
+                        <div class="quick-actions" style="display:flex; gap:4px; justify-content:flex-end; opacity:0; transition:opacity 0.15s;">
+                            <button onclick="openDrawer('{{ lead.id }}')"
+                                    style="padding:6px 10px; border:none; background:var(--text-primary); color:white; border-radius:6px; cursor:pointer; font-size:0.75rem; transition:all 0.15s; font-weight:500;"
+                                    title="View Details">
+                                View
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+        </div>
     </div>
     {% endfor %}
 </div>
+
+<style>
+    .pipeline-panel {
+        transition: all 0.2s ease;
+    }
+    .pipeline-panel:hover {
+        box-shadow: var(--shadow-md) !important;
+    }
+    .monday-table tbody tr {
+        border-radius: 6px;
+    }
+    .monday-table tbody tr:hover {
+        background: white !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        transform: translateY(-1px);
+    }
+    .monday-table tbody tr:hover td {
+        background: transparent !important;
+    }
+    .monday-table tr:hover .quick-actions {
+        opacity: 1 !important;
+    }
+    .monday-table td {
+        border: none !important;
+    }
+</style>
 
 <script>
     // Drag and Drop Logic
@@ -123,6 +174,19 @@
         var leadId = ev.dataTransfer.getData("leadId");
         fetch(`/admin/move_lead/${leadId}/${newStage}`, { method: 'POST' })
             .then(r => { if (r.ok) window.location.reload(); });
+    }
+
+    // Quick Actions
+    function quickAction(leadId, action) {
+        if (action === 'contact') {
+            // Get lead WhatsApp number via API or from data attribute
+            fetch(`/admin/lead/${leadId}/partial`)
+                .then(r => r.json())
+                .catch(() => {
+                    // Fallback: just open drawer
+                    openDrawer(leadId);
+                });
+        }
     }
 </script>
 {% endblock %}

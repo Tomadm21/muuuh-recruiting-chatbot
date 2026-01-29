@@ -7,7 +7,7 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from app.core.intent_handler import intent_handler
+from app.core.flow_engine import flow_engine
 from app.db.database import SessionLocal
 from app.utils.logger import app_logger
 
@@ -39,7 +39,8 @@ async def test_conversation():
             
             # Process message
             try:
-                bot_response = await intent_handler.process_message(
+                # FlowEngine is synchronous
+                bot_response = flow_engine.process_message(
                     user_id=test_user_id,
                     message=user_message,
                     db=db
