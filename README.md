@@ -257,9 +257,6 @@ MIT License - feel free to use for your own projects!
 ## 👤 Author
 
 **Tom Adomeit**
-- Make.com Automation Expert
-- AI Tools Specialist
-- Junior Conversational AI Developer (applying to muuh)
 
 ---
 
