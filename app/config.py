@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     twilio_whatsapp_number: str
     
     # Database Configuration
-    database_url: str = "sqlite:///./muuh_chatbot.db"
+    database_url: str = "sqlite:///./data/muuh_chatbot.db"
     
     # Application Settings
     environment: str = "development"

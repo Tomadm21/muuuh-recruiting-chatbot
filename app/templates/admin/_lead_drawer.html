@@ -1,10 +1,10 @@
 <div class="drawer-content-inner">
     <!-- Header -->
-    <div style="margin-bottom: 30px;">
+    <div style="margin-bottom: 24px;">
         <h1
-            style="font-size: 1.75rem; font-weight: 700; margin: 0 0 8px 0; color: var(--text-primary); letter-spacing: -0.5px;">
+            style="font-size: 1.5rem; font-weight: 700; margin: 0 0 6px 0; color: var(--text-primary); letter-spacing: -0.3px;">
             {{ lead.name }}</h1>
-        <div style="display: flex; align-items: center; gap: 12px; font-size: 0.9rem; color: var(--text-secondary);">
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 0.8125rem; color: var(--text-secondary);">
             <span style="font-weight: 500;">{{ lead.position_interest }}</span>
             <span style="opacity: 0.3;">•</span>
             <span class="status-pill status-{{ lead.pipeline_status }}">{{ lead.pipeline_status|upper }}</span>
@@ -12,11 +12,11 @@
     </div>
 
     <!-- Actions -->
-    <div style="display: flex; gap: 12px; margin-bottom: 40px;">
-        <a href="https://wa.me/{{ lead.whatsapp_number }}" target="_blank" class="btn"
-            style="background: var(--text-primary); color: white;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;">
+    <div style="display: flex; gap: 10px; margin-bottom: 32px;">
+        <a href="https://wa.me/{{ lead.whatsapp_number }}" target="_blank" class="btn btn-primary"
+            style="display:flex; align-items:center; gap:6px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path
                     d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
                 </path>
@@ -26,32 +26,32 @@
         {% if lead.cv_file_path %}
         <a href="{{ lead.cv_file_path if not lead.cv_file_path.startswith('url:') else lead.cv_file_path[4:] }}"
             target="_blank" class="btn btn-outline">
-            View Resume
+            Resume
         </a>
         {% endif %}
     </div>
 
     <!-- AI Insights -->
     {% if lead.projects and lead.projects.score %}
-    <div style="background: var(--bg-hover); border-radius: 8px; padding: 24px; margin-bottom: 40px;">
-        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+    <div style="background: var(--bg-hover); border-radius: 8px; padding: 20px; margin-bottom: 32px;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 14px;">
             <h3
-                style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-tertiary); margin: 0;">
+                style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-tertiary); margin: 0;">
                 AI Analysis</h3>
-            <div style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">{{ lead.projects.score
-                }}<span style="font-size:0.9rem; color:var(--text-tertiary); font-weight:400;">/100</span></div>
+            <div style="font-size: 1.125rem; font-weight: 700; color: var(--text-primary);">{{ lead.projects.score
+                }}<span style="font-size:0.8125rem; color:var(--text-tertiary); font-weight:400;">/100</span></div>
         </div>
 
-        <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 24px;">{{
+        <p style="font-size: 0.875rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 20px;">{{
             lead.projects.summary }}</p>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div>
                 <strong
-                    style="display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #10b981; margin-bottom: 12px;">Positives</strong>
-                <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: var(--text-secondary);">
+                    style="display: block; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; color: #10b981; margin-bottom: 10px; letter-spacing:0.8px;">Strengths</strong>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.8125rem; color: var(--text-secondary);">
                     {% for pro in lead.projects.pros %}
-                    <li style="margin-bottom: 8px; display: flex; gap: 8px;">
+                    <li style="margin-bottom: 6px; display: flex; gap: 6px;">
                         <span style="color: #10b981;">+</span> {{ pro }}
                     </li>
                     {% endfor %}
@@ -59,10 +59,10 @@
             </div>
             <div>
                 <strong
-                    style="display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #ef4444; margin-bottom: 12px;">Considerations</strong>
-                <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: var(--text-secondary);">
+                    style="display: block; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; color: #ef4444; margin-bottom: 10px; letter-spacing:0.8px;">Notes</strong>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.8125rem; color: var(--text-secondary);">
                     {% for con in lead.projects.cons %}
-                    <li style="margin-bottom: 8px; display: flex; gap: 8px;">
+                    <li style="margin-bottom: 6px; display: flex; gap: 6px;">
                         <span style="color: #ef4444;">−</span> {{ con }}
                     </li>
                     {% endfor %}
@@ -74,46 +74,46 @@
 
     <!-- Info Grid -->
     <div
-        style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; border-top: 1px solid var(--border-subtle); padding-top: 24px;">
+        style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px; border-top: 1px solid var(--border-light); padding-top: 20px;">
         <div>
-            <div style="font-size: 0.75rem; color: var(--text-tertiary); margin-bottom: 4px;">Email</div>
-            <div style="font-size: 0.95rem; color: var(--text-primary); font-weight: 500;">{{ lead.email or 'N/A' }}
+            <div style="font-size: 0.6875rem; color: var(--text-tertiary); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.5px;">Email</div>
+            <div style="font-size: 0.875rem; color: var(--text-primary); font-weight: 500;">{{ lead.email or 'N/A' }}
             </div>
         </div>
         <div>
-            <div style="font-size: 0.75rem; color: var(--text-tertiary); margin-bottom: 4px;">Phone</div>
-            <div style="font-size: 0.95rem; color: var(--text-primary); font-weight: 500;">{{ lead.phone or
+            <div style="font-size: 0.6875rem; color: var(--text-tertiary); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.5px;">Phone</div>
+            <div style="font-size: 0.875rem; color: var(--text-primary); font-weight: 500;">{{ lead.phone or
                 lead.whatsapp_number }}</div>
         </div>
         <div>
-            <div style="font-size: 0.75rem; color: var(--text-tertiary); margin-bottom: 4px;">Experience</div>
-            <div style="font-size: 0.95rem; color: var(--text-primary); font-weight: 500;">{{ lead.years_of_experience
+            <div style="font-size: 0.6875rem; color: var(--text-tertiary); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.5px;">Experience</div>
+            <div style="font-size: 0.875rem; color: var(--text-primary); font-weight: 500;">{{ lead.years_of_experience
                 or '-' }} Years</div>
         </div>
         <div>
-            <div style="font-size: 0.75rem; color: var(--text-tertiary); margin-bottom: 4px;">Source</div>
-            <div style="font-size: 0.95rem; color: var(--text-primary); font-weight: 500;">{{ lead.source or 'Direct' }}
+            <div style="font-size: 0.6875rem; color: var(--text-tertiary); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.5px;">Source</div>
+            <div style="font-size: 0.875rem; color: var(--text-primary); font-weight: 500;">{{ lead.source or 'Direct' }}
             </div>
         </div>
     </div>
 
-    <!-- Chat Transcript (Collapsed Logic could be nice, but simple scroll is fine) -->
+    <!-- Chat Transcript -->
     <h3
-        style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-tertiary); margin: 0 0 16px 0;">
+        style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-tertiary); margin: 0 0 14px 0;">
         Conversation</h3>
-    <div style="background: var(--bg-hover); border-radius: 8px; padding: 20px; max-height: 400px; overflow-y: auto;">
+    <div style="background: var(--bg-hover); border-radius: 8px; padding: 16px; max-height: 400px; overflow-y: auto;">
         {% for msg in lead.conversation_history %}
         <div
-            style="margin-bottom: 12px; display: flex; flex-direction: column; align-items: {{ 'flex-end' if msg.role == 'user' else 'flex-start' }};">
-            <div style="max-width: 85%; padding: 10px 14px; border-radius: 8px; font-size: 0.9rem; line-height: 1.5;
+            style="margin-bottom: 10px; display: flex; flex-direction: column; align-items: {{ 'flex-end' if msg.role == 'user' else 'flex-start' }};">
+            <div style="max-width: 85%; padding: 8px 12px; border-radius: 6px; font-size: 0.8125rem; line-height: 1.5;
                 {% if msg.role == 'user' %}
                     background: var(--text-primary); color: white;
                 {% else %}
-                    background: white; border: 1px solid var(--border-subtle); color: var(--text-primary);
+                    background: white; border: 1px solid var(--border-light); color: var(--text-primary);
                 {% endif %}">
                 {{ msg.content }}
             </div>
-            <div style="font-size: 0.7rem; color: var(--text-tertiary); margin-top: 4px;">{{ 'Candidate' if msg.role ==
+            <div style="font-size: 0.6875rem; color: var(--text-tertiary); margin-top: 3px;">{{ 'Candidate' if msg.role ==
                 'user' else 'System' }}</div>
         </div>
         {% endfor %}
