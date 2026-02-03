@@ -9,7 +9,7 @@ from app.utils.logger import app_logger
 from app.services.twilio_service import twilio_service
 from app.db import crud
 from app.core.flow_engine import flow_engine
-from app.core.worker import run_scoring_pipeline
+from app.workers.recruiting_worker import run_unified_recruiting_pipeline
 
 router = APIRouter()
 
@@ -60,11 +60,17 @@ async def whatsapp_webhook(
         if not response_text:
             response_text = flow_engine.process_message(user_id, engine_msg, db)
 
-        # 4. Trigger Scoring (If Completed)
+        # 4. Trigger Unified Pipeline (If Document or Completed)
         db.refresh(lead)
-        if lead.conversation_stage == 99 and lead.qualification_score == 0:
-             app_logger.info(f"Triggering Background Scoring for {user_id}")
-             background_tasks.add_task(run_scoring_pipeline, lead.id)
+        if NumMedia > 0 or (lead.conversation_stage == 99 and lead.qualification_score == 0):
+             app_logger.info(f"Triggering Pipeline for {user_id}")
+             background_tasks.add_task(
+                 run_unified_recruiting_pipeline, 
+                 lead.id, 
+                 MediaUrl0, 
+                 "application/pdf", # Assume PDF for recruiting
+                 Body
+             )
 
         # 5. Send Response
         if response_text:

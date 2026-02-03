@@ -12,6 +12,17 @@ This chatbot automates recruiting tasks for muuh (Conversational AI agency):
 
 **Built as a portfolio project** to demonstrate Conversational AI, API integration, and production-ready Python development.
 
+## 📚 Documentation
+
+For detailed information about the project, refer to the following documents:
+
+- [**1. Project Overview**](docs/1.%20Project%20Overview.md): Project goals, tech stack, and structure.
+- [**2. Architecture Overview**](docs/2.%20Architecture%20Overview.md): System design, C4 diagrams, and patterns.
+- [**3. Workflow Overview**](docs/3.%20Workflow%20Overview.md): Sequence diagrams for message handling and screening.
+- [**4. Deep Dive: Flow Engine**](docs/4.%20Deep%20Dive/Flow%20Engine.md): Detailed logic of the core state machine.
+
+---
+
 ## ✨ Features
 
 - 🔄 **Natural Conversations**: GPT-4 powered intent extraction and responses
@@ -23,34 +34,36 @@ This chatbot automates recruiting tasks for muuh (Conversational AI agency):
 
 ## 🏗️ Architecture
 
-```
-┌─────────────┐
-│  WhatsApp   │
-│    User     │
-└──────┬──────┘
-       │ Message
-       ↓
-┌─────────────────────┐
-│   Twilio Webhook    │
-└──────┬──────────────┘
-       │ POST /webhook
-       ↓
-┌─────────────────────┐
-│   FastAPI Backend   │
-│                     │
-│  Intent Handler     │
-│      ↓              │
-│  OpenAI GPT-4       │
-│      ↓              │
-│  Business Logic     │
-│      ↓              │
-│  SQLite Database    │
-└──────┬──────────────┘
-       │ Response
-       ↓
-┌─────────────────────┐
-│  WhatsApp User      │
-└─────────────────────┘
+```mermaid
+graph TD
+    User([👤 WhatsApp User])
+    Twilio[📡 Twilio Webhook]
+    
+    subgraph Backend ["⚙️ FastAPI Backend"]
+        Handler[Webhooks & Routing]
+        Intent[🧠 Intent Handler]
+        Scoring[📊 Lead Scoring]
+        DB[(💾 SQLite Database/Knowledge Base)]
+    end
+    
+    OpenAI[🤖 OpenAI GPT-4]
+    
+    User -->|Message| Twilio
+    Twilio -->|POST /webhook| Handler
+    Handler --> Intent
+    Intent <-->|Function Calling| OpenAI
+    Intent --> Scoring
+    Intent <-->|Read/Write| DB
+    
+    Scoring -->|Score & Response| Handler
+    Handler -->|XML| Twilio
+    Twilio -->|Reply| User
+    
+    style User fill:#25D366,stroke:#25D366,stroke-width:2px,color:#fff
+    style Twilio fill:#F22F46,stroke:#F22F46,stroke-width:2px,color:#fff
+    style OpenAI fill:#10A37F,stroke:#10A37F,stroke-width:2px,color:#fff
+    style Backend fill:#f9f9f9,stroke:#333,stroke-width:1px,stroke-dasharray: 5 5
+    style DB fill:#333,stroke:#333,stroke-width:2px,color:#fff
 ```
 
 ## 🚀 Quick Start
@@ -158,6 +171,10 @@ Bot: Vielen Dank, Tom! 📧
 - **Messaging**: Twilio WhatsApp API
 - **Database**: SQLite (PostgreSQL-ready)
 - **Testing**: pytest
+
+---
+
+## 🏗️ Technical Deep Dive
 ## 🗂️ Project Structure
 
 ```

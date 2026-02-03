@@ -27,7 +27,7 @@ echo ""
 
 # Install dependencies
 echo "📥 Installing dependencies..."
-pip install -r requirements.txt --quiet
+pip install . --quiet
 echo "   ✅ Dependencies installed"
 echo ""
 
@@ -59,8 +59,8 @@ echo "================================================"
 echo ""
 echo "Next steps:"
 echo "1. Edit .env with your API credentials"
-echo "2. Run: python scripts/test_conversation.py (test locally)"
+echo "2. Run: pytest tests/test_flow_engine.py (run tests)"
 echo "3. Run: python -m uvicorn app.main:app --reload (start server)"
 echo ""
-echo "For deployment, see: DEPLOYMENT.md"
+echo "For documentation, see: docs/1. Project Overview.md"
 echo ""
