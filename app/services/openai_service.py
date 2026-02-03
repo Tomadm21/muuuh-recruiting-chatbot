@@ -441,5 +441,79 @@ WICHTIG:
             app_logger.error(f"Error grading application: {e}")
             return {"score": 0, "summary": "Error analyzing CV.", "pros": [], "cons": []}
 
-# Global instance
+    def analyze_cv(self, cv_text: str) -> Dict[str, Any]:
+        """
+        Analyze CV and extract structured information.
+        """
+        try:
+            function_schema = {
+                "name": "extract_cv_data",
+                "description": "Extract structured information from a CV",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "first_name": {"type": "string"},
+                        "last_name": {"type": "string"},
+                        "email": {"type": "string"},
+                        "phone": {"type": "string"},
+                        "years_of_experience": {"type": "integer"},
+                        "education_level": {
+                            "type": "string",
+                            "enum": ["Abitur", "Ausbildung", "Bachelor", "Master", "PhD", "Other"]
+                        },
+                        "skills": {
+                            "type": "object",
+                            "properties": {
+                                "python": {"type": "boolean"},
+                                "javascript": {"type": "boolean"},
+                                "apis": {"type": "boolean"},
+                                "conversational_ai": {"type": "boolean"},
+                                "parloa": {"type": "boolean"}
+                            }
+                        },
+                        "projects": {"type": "array", "items": {"type": "string"}},
+                        "quality_score": {"type": "integer"}
+                    },
+                    "required": ["years_of_experience", "skills", "quality_score"]
+                }
+            }
+            
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[{"role": "user", "content": f"Analyze this CV: {cv_text[:4000]}"}],
+                functions=[function_schema],
+                function_call={"name": "extract_cv_data"}
+            )
+            return json.loads(response.choices[0].message.function_call.arguments)
+        except Exception as e:
+            app_logger.error(f"CV Analysis failed: {e}")
+            return {"quality_score": 0, "skills": {}}
+
+    def analyze_cover_letter(self, letter_text: str) -> Dict[str, Any]:
+        """
+        Analyze cover letter for motivation and fit.
+        """
+        try:
+            prompt = f"Analyze this cover letter for motivation (0-100) and fit: {letter_text[:2000]}"
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[{"role": "user", "content": prompt}],
+                response_format={"type": "json_object"}
+            )
+            return json.loads(response.choices[0].message.content)
+        except Exception as e:
+            app_logger.error(f"Cover Analysis failed: {e}")
+            return {"motivation_score": 0}
+
+    def calculate_skill_match_score(self, skills: Dict[str, bool]) -> int:
+        """
+        Calculate skill match score 0-100.
+        """
+        score = 0
+        weights = {"apis": 15, "python": 15, "conversational_ai": 30, "parloa": 40}
+        for skill, weight in weights.items():
+            if skills.get(skill):
+                score += weight
+        return min(score, 100)
+
 openai_service = OpenAIService()
